@@ -1,0 +1,13 @@
+.App {
+    font-family: sans-serif;
+    text-align: center;
+  }
+  
+  .user {
+    display: flex;
+    width: 1800px;
+    justify-content: space-between;
+    margin: 5px;
+    border: solid 1px;
+  }
+  

@@ -99,6 +99,7 @@ export default function App() {
     <div className="App">
       <h1>Comments</h1>
       <AddComment onAdd={onAdd} />
+      <div className="form_body">
       {comments.map((comment) => (
         <Comment
           id={comment.id}
@@ -110,6 +111,7 @@ export default function App() {
           onDelete={onDelete}
         />
       ))}
+      </div>
     </div>
   );
 }

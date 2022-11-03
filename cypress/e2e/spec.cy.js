@@ -24,7 +24,7 @@ describe('CRUD_API testing with Cypress', () => {
     cy.get('[placeholder="Email"]').type('sample@email.com')
     cy.get('[placeholder="Body"]').type('Sample body')
     cy.get('form > button').click()
-    cy.wait(1000)
+    cy.get(':nth-child(11) > .user').should('be.visible', true)
     cy.get(':nth-child(11) > .user')
     cy.get(':nth-child(11) > .user > .user-name').should('contain', 'Sample name')
     cy.get(':nth-child(11) > .user > .user-email').should('contain', 'sample@email.com')
@@ -33,7 +33,6 @@ describe('CRUD_API testing with Cypress', () => {
 
   it('Test editing a comment', () => {
     cy.get(':nth-child(11) > .user > div > :nth-child(1)').click()
-    cy.wait(500)
     cy.get(':nth-child(11) > form > [placeholder="Name"]').clear()
     cy.get(':nth-child(11) > form > [placeholder="Name"]').type('Alias').should('have.value', 'Alias')
     cy.get(':nth-child(11) > form > [placeholder="Email"]').clear()
@@ -45,7 +44,6 @@ describe('CRUD_API testing with Cypress', () => {
 
   it('Test deleting a comment', () => {
     cy.get(':nth-child(11) > .user > div > :nth-child(2)').click()
-    wait(1000)
     cy.get(':nth-child(11) > .user').should('not.exist')
   })
   

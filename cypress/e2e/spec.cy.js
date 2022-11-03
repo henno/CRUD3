@@ -13,7 +13,7 @@ describe('CRUD_API testing with Cypress', () => {
     cy.get('form > button').should('be.visible', true)
 
     cy.get(':nth-child(1) > .user > .user-name').should('have.text', 'id labore ex et quam laborum')
-    cy.get(':nth-child(1) > .user > .user-email').should('have.text', 'Eliseo@gardner.biz')
+    cy.get(':nth-child(1) > .user > .user-email').should('have.text', 'Eliseo@gardner.bi')
     cy.get(':nth-child(1) > .user > .user-body').should('have.text', 'laudantium enim quasi est quidem magnam voluptate ipsam eos\ntempora quo necessitatibus\ndolor quam autem quasi\nreiciendis et nam sapiente accusantium')
     cy.get(':nth-child(1) > .user > div > :nth-child(1)').should('be.visible', true)
     cy.get(':nth-child(1) > .user > div > :nth-child(2)').should('be.visible', true)

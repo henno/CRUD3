@@ -11,48 +11,49 @@ export default function App() {
   }, []);
 
   const fetchData = async () => {
-    await fetch("https://jsonplaceholder.typicode.com/comments?_limit=10")
+    await fetch(process.env.REACT_APP_MY_API_URL + "/comments?_limit=10")
       .then((response) => response.json())
       .then((data) => setComments(data))
       .catch((error) => console.log(error));
   };
 
   const onAdd = async (name, email, body) => {
-    await fetch("https://jsonplaceholder.typicode.com/comments", {
+    await fetch(process.env.REACT_APP_MY_API_URL + "/comments", {
       method: "POST",
       body: JSON.stringify({
         name: name,
         email: email,
-        body: body
+        body: body,
       }),
       headers: {
-        "Content-type": "application/json; charset=UTF-8"
-      }
+        "Content-type": "application/json; charset=UTF-8",
+      },
     })
       .then((response) => {
-        if (response.status !== 201) {
-          return;
+        if (response.status === 201) {
+          return response.json();
         } else {
           return response.json();
         }
       })
       .then((data) => {
+        console.log(data);
         setComments((comments) => [...comments, data]);
       })
       .catch((error) => console.log(error));
   };
 
   const onEdit = async (id, name, email, body) => {
-    await fetch(`https://jsonplaceholder.typicode.com/comments/${id}`, {
+    await fetch(process.env.REACT_APP_MY_API_URL + `/comments/${id}`, {
       method: "PUT",
       body: JSON.stringify({
         name: name,
         email: email,
-        body: body
+        body: body,
       }),
       headers: {
-        "Content-type": "application/json; charset=UTF-8"
-      }
+        "Content-type": "application/json; charset=UTF-8",
+      },
     })
       .then((response) => {
         if (response.status !== 200) {
@@ -62,29 +63,28 @@ export default function App() {
         }
       })
       .then((data) => {
-        // setUsers((users) => [...users, data]);
+        // setComments((comments) => [...comments, data]);
         const updatedComments = comments.map((comment) => {
           if (comment.id === id) {
             comment.name = name;
             comment.email = email;
+            comment.body = body;
           }
 
           return comment;
         });
 
-        setComments((comments) => updatedComments);
+        setComments(updatedComments);
       })
       .catch((error) => console.log(error));
   };
 
   const onDelete = async (id) => {
-    await fetch(`https://jsonplaceholder.typicode.com/comments/${id}`, {
-      method: "DELETE"
+    await fetch(process.env.REACT_APP_MY_API_URL + `/comments/${id}`, {
+      method: "DELETE",
     })
       .then((response) => {
-        if (response.status !== 200) {
-          return;
-        } else {
+        if (response.status === 200) {
           setComments(
             comments.filter((comment) => {
               return comment.id !== id;
@@ -99,19 +99,19 @@ export default function App() {
     <div className="App">
       <h1>Comments!</h1>
       <AddComment onAdd={onAdd} />
-      <div className="form_body">
-      {comments.map((comment) => (
-        <Comment
-          id={comment.id}
-          key={comment.id}
-          name={comment.name}
-          email={comment.email}
-          body={comment.body}
-          onEdit={onEdit}
-          onDelete={onDelete}
-        />
-      ))}
-      </div>
+      <table border={1} className="form_body">
+        {comments.map((comment) => (
+          <Comment
+            id={comment.id}
+            key={comment.id}
+            name={comment.name}
+            email={comment.email}
+            body={comment.body}
+            onEdit={onEdit}
+            onDelete={onDelete}
+          />
+        ))}
+      </table>
     </div>
   );
 }

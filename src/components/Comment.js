@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
 export const Comment = ({ name, email, body, id, onEdit, onDelete }) => {
-  const [isEdit, setIsEdit] = useState(false);
 
+  const [isEdit, setIsEdit] = useState(false);
   const handleEdit = () => {
     setIsEdit(!isEdit);
   };
